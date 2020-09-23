@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+(sleep 10 ; echo first done) &
+(sleep 20 ; echo second done) &
+(sleep 30 ; echo third done) &
+
+my_children=$(pgrep -P $$)
+
+while [[ $my_children != "" ]]; do
+    for c in $my_children ; do
+        echo $c is still running
+    done
+    echo --------------------------------------
+    sleep 5
+    my_children=$(pgrep -P $$)
+done
